@@ -1,0 +1,39 @@
+extends ../layouts/auth
+
+block content
+  .is-size-5.has-text-centered Register for an account
+  if Object.keys(notification).length
+    each message, color in notification
+      .notification(class=`is-${color}`)=message
+  form(action="/register" method="post")
+    input(type="hidden" name="_csrf" value=csrfToken)
+    .field
+      label.label(for="name") Name
+      .control
+        input#name.input(type="text" name="name" value=inputs.name || "" class=errors.name ? "is-danger" : "")
+      if errors.name
+        .help.is-danger=errors.name.msg
+    .field
+      label.label(for="email") Email
+      .control
+        input#email.input(type="email" name="email" value=inputs.email || "" class=errors.email ? "is-danger" : "")
+      if errors.email
+        .help.is-danger=errors.email.msg
+    .field
+      label.label(for="password") Password
+      .control
+        input#password.input(type="password" name="password" class=errors.password ? "is-danger" : "")
+      if errors.password
+        .help.is-danger=errors.password.msg
+    .field
+      label.label(for="password2") Password (again)
+      .control
+        input#password2.input(type="password" name="password2" class=errors.password2 ? "is-danger" : "")
+      if errors.password2
+        .help.is-danger=errors.password2.msg
+    .field
+      .control
+        .buttons.is-centered
+          button.button.is-info Register
+    .field
+      .has-text-centered (Got an account? #[a(href="/login") Login now].)

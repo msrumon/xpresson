@@ -1,0 +1,37 @@
+extends ../layouts/main
+
+block content
+  if Object.keys(notification).length
+    each message, color in notification
+      .notification(class=`is-${color}`)=message
+  .level
+    .level-left
+      .is-size-2 Hello #{user.name}!
+    .level-right
+      .buttons
+        a.button.is-dark.is-small(href="/profile/update")
+          span.icon: i.fas.fa-user-cog.fa-fw
+          span Update
+        a.button.is-warning.is-small(href="/profile/delete")
+          span.icon: i.fas.fa-user-slash.fa-fw
+          span Delete
+  .columns.is-multiline
+    each post in posts
+      .column.is-full
+        .card
+          .card-content
+            .media
+              .media-content
+                .title.is-4=post.title
+                .subtitle.is-6
+                  time(datetime=post.createdAt.toISOString())=post.createdAt.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'medium' })
+            .content=post.content.length < 150 ? post.content : post.content.slice(0, 150) + '...'
+          .card-footer
+            a.card-footer-item(href=`/posts/${post.id}/update`)
+              span.icon: i.fas.fa-pen.fa-fw
+              span Update
+            a.card-footer-item(href=`/posts/${post.id}/delete`)
+              span.icon: i.fas.fa-trash.fa-fw
+              span Delete
+    else
+      .column No posts!

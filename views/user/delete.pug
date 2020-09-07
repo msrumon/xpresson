@@ -1,0 +1,21 @@
+extends ../layouts/main
+
+block content
+  form.columns.is-multiline.is-centered(action="/profile/delete" method="post")
+    input(type="hidden" name="_csrf" value=csrfToken)
+    .column.is-full
+      .title.has-text-centered Delete Profile
+      .subtitle.has-text-centered Are you sure you want to delete your profile?
+    .column.is-half
+      .has-text-centered Please type in &quot;CONFIRM&quot; to delete your profile.
+      .field
+        .control
+          input.input(type="text" name="confirmation" placeholder="CONFIRM" class=errors.confirmation ? "is-danger" : "")
+        if errors.confirmation
+          .help.is-danger=errors.confirmation.msg
+    .column.is-full
+      .field.is-grouped.is-grouped-centered
+        .control
+          button.button.is-danger(type="submit") Yes
+        .control
+          button.button.is-dark(type="button" onclick="location.href='/profile'") No

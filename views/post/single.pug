@@ -1,0 +1,55 @@
+extends ../layouts/main
+
+block content
+  if Object.keys(notification).length
+    each message, color in notification
+      .notification(class=`is-${color}`)=message
+  h1=post.title
+  p=post.content
+  unless authUser
+    div(style="margin-bottom:1rem")
+      span.icon: i.fas.fa-thumbs-up.fa-fw
+      span=post.Likes
+  else
+    form(action=`/posts/${post.id}/likes` method="post" style="margin-bottom:1rem")
+      input(type="hidden" name="_csrf" value=csrfToken)
+      .field.is-grouped
+        .control
+          button.button.is-small
+            span.icon: i.fas.fa-fw(class=isAuthLiked ? "fa-thumbs-down" : "fa-thumbs-up")
+            span=`${isAuthLiked ? "Unlike" : "Like"} (${post.Likes})`
+  .box
+    .level
+      .level-left
+        .subtitle Comments
+      if post.Comments.rows.length && (!hasStarted || !hasEnded)
+        .level-right
+          nav.pagination.is-small(role='navigation' aria-label='pagination')
+            a.pagination-previous(href=hasStarted ? false : `?page=${page - 1 || 1}` disabled=hasStarted) Previous
+            a.pagination-next(href=hasEnded ? false : `?page=${page + 1 || 2}` disabled=hasEnded) Next
+    each comment in post.Comments.rows
+      .media
+        .media-content
+          .content
+            div
+              strong=comment.User.name
+              small &nbsp;&sdot;&nbsp;
+              time(datetime=comment.createdAt.toISOString())=comment.createdAt.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'medium' })
+              p=comment.text
+    else
+      .media
+        .media-content
+          .content
+            div No comments!
+    if authUser
+      .media
+        form.media-content(action=`/posts/${post.id}/comments` method="post")
+          input(type="hidden" name="_csrf" value=csrfToken)
+          .field
+            .control
+              textarea.textarea(name="comment" placeholder="Add your comment..." class=errors.comment ? "is-danger" : "")
+            if errors.comment
+              .help.is-danger=errors.comment.msg
+          .field
+            .control
+              button.button.is-primary.is-small Submit

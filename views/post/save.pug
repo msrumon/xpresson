@@ -1,0 +1,22 @@
+extends ../layouts/main
+
+block content
+  .title=`${!post ? "Create New" : "Edit The"} Post`
+  form(action=post ? `/posts/${post.id}/update` : "/posts" method="post")
+    input(type="hidden" name="_csrf" value=csrfToken)
+    .field
+      label.label(for="title") Ttile
+      .control
+        input#title.input(type="text" name="title" value=post ? post.title : inputs.title || "" class=errors.title ? "is-danger" : "")
+      if errors.title
+        .help.is-danger=errors.title.msg
+    .field
+      label.label(for="content") Content
+      .control
+        textarea#content.textarea(name="content" class=errors.content ? "is-danger" : "")=post ? post.content : inputs.content || ""
+      if errors.content
+        .help.is-danger=errors.content.msg
+    .field
+      .control
+        button.button.is-primary Save
+

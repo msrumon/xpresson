@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title #{title}
+    link(rel="stylesheet" href="/bulmaswatch.min.css")
+  body
+    main.hero.is-fullheight
+      .hero-head
+        nav.navbar(role="navigation" aria-label="main navigation")
+          .navbar-brand
+            .navbar-item #{title}
+            .navbar-burger.burger(role="button" aria-label="menu" aria-expanded="false" data-target="nav")
+              span(aria-hidden="true")
+              span(aria-hidden="true")
+              span(aria-hidden="true")
+          #nav.navbar-menu
+            .navbar-start
+              include ../partials/nav-main
+      .hero-body
+        .container
+          .columns.is-centered
+            .column.is-one-third
+              .is-size-1.has-text-centered #{title}
+              block content

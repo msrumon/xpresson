@@ -1,0 +1,19 @@
+.navbar-item
+  .buttons
+    unless authUser
+      a.button.is-primary.is-small(href="/register")
+        span.icon: i.fas.fa-user-plus.fa-fw
+        strong Register
+      a.button.is-dark.is-small(href="/login")
+        span.icon: i.fas.fa-sign-in-alt.fa-fw
+        span Login
+    else
+      a.button.is-link.is-small(href="/posts/new")
+        span.icon: i.fas.fa-plus.fa-fw
+        span New Post
+      a.button.is-info.is-small(href="/profile")
+        span.icon: i.fas.fa-user.fa-fw
+        span My Profile
+      a.button.is-danger.is-small(href="/logout")
+        span.icon: i.fas.fa-sign-out-alt.fa-fw
+        span Logout

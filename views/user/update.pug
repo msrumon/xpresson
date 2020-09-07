@@ -1,0 +1,45 @@
+extends ../layouts/main
+
+block content
+  form.columns.is-multiline(action="/profile/update" method="post")
+    input(type="hidden" name="_csrf" value=csrfToken)
+    .column.is-full
+      .title.has-text-centered Update Profile
+    .column.is-half
+      .field
+        label.label(for="name") Name
+        .control
+          input#name.input(type="text" name="name" value=inputs.name || user.name || "" class=errors.name ? "is-danger" : "")
+        if errors.name
+          .help.is-danger=errors.name.msg
+      .field
+        label.label(for="email") Email
+        .control
+          input#email.input(type="email" name="email" value=inputs.email || user.email || "" class=errors.email ? "is-danger" : "")
+        if errors.email
+          .help.is-danger=errors.email.msg
+    .column.is-half
+      .field
+        label.label(for="oldPassword") Current Password
+        .control
+          input#oldPassword.input(type="password" name="oldPassword" class=errors.oldPassword ? "is-danger" : "")
+        if errors.oldPassword
+          .help.is-danger=errors.oldPassword.msg
+      .field
+        label.label(for="newPassword") New Password
+        .control
+          input#newPassword.input(type="password" name="newPassword" class=errors.newPassword ? "is-danger" : "")
+        if errors.newPassword
+          .help.is-danger=errors.newPassword.msg
+      .field
+        label.label(for="newPassword2") New Password (again)
+        .control
+          input#newPassword2.input(type="password" name="newPassword2" class=errors.newPassword2 ? "is-danger" : "")
+        if errors.newPassword2
+          .help.is-danger=errors.newPassword2.msg
+    .column.is-full
+      .field.is-grouped.is-grouped-centered
+        .control
+          button.button.is-primary(type="submit") Save
+        .control
+          button.button.is-dark(type="button" onclick="location.href='/profile'") Cancel

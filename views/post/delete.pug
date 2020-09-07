@@ -1,0 +1,16 @@
+extends ../layouts/main
+
+block content
+  form.columns.is-multiline.is-centered(action=`/posts/${post.id}/delete` method="post")
+    input(type="hidden" name="_csrf" value=csrfToken)
+    .column.is-full
+      .title.has-text-centered Delete Post
+      .subtitle.has-text-centered Are you sure you want to delete the post?
+    .column.is-half
+      .has-text-warning.has-text-centered You won&apos;t be able to recover it anymore!
+    .column.is-full
+      .field.is-grouped.is-grouped-centered
+        .control
+          button.button.is-danger(type="submit") Yes
+        .control
+          button.button.is-dark(type="button" onclick=`location.href='/posts/${post.id}'`) No
