@@ -1,6 +1,6 @@
 {
   "name": "xpresson",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Blogging matters.",
   "main": "app.js",
   "scripts": {
