@@ -20,9 +20,9 @@ exports.index = async (req, res, next) => {
       include: 'User',
     });
     const hasStarted = !page || page <= 1;
-    const hasEnded =
-      posts.count <= limit || page >= Math.ceil(posts.count / limit);
-    if (page && page > Math.ceil(posts.count / limit)) {
+    const lastPageNumber = Math.ceil(posts.count / limit);
+    const hasEnded = posts.count <= limit || page >= lastPageNumber;
+    if (page && page > lastPageNumber) {
       req.flash('notification', { danger: 'Page number is invalid!' });
       return res.redirect('/posts');
     }
@@ -89,10 +89,9 @@ exports.show = async (req, res, next) => {
       }),
     };
     const hasStarted = !page || page <= 1;
-    const hasEnded =
-      post.Comments.count <= limit ||
-      page >= Math.ceil(post.Comments.count / limit);
-    if (page && page > Math.ceil(post.Comments.count / limit)) {
+    const lastPageNumber = Math.ceil(post.Comments.count / limit);
+    const hasEnded = post.Comments.count <= limit || page >= lastPageNumber;
+    if (page && page > lastPageNumber) {
       req.flash('notification', { danger: 'Page number is invalid!' });
       return res.redirect(`/posts/${post.id}`);
     }
