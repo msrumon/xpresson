@@ -1,6 +1,8 @@
 const path = require('path');
 
 const express = require('express');
+const helmet = require('helmet');
+const compression = require('compression');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const csurf = require('csurf');
@@ -17,11 +19,12 @@ const errorController = require('./controllers/error');
 const db = require('./utils/database');
 require('./helpers/relations');
 
-app.disable('x-powered-by');
 app.set('view engine', 'pug');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(compression());
 app.use(
   session({
     store: new SequelizeStore({ db }),

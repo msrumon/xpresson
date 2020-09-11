@@ -18,10 +18,8 @@ html(lang="en")
               span(aria-hidden="true")
           #nav.navbar-menu
             .navbar-start
-              include ../partials/nav-main
+              include partials/nav-main
       .hero-body
         .container
-          .columns.is-centered
-            .column.is-one-third
-              .is-size-1.has-text-centered #{title}
-              block content
+          .title.has-text-centered !{headline}
+          .subtitle.has-text-centered !{description}

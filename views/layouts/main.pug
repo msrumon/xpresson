@@ -6,7 +6,7 @@ html(lang="en")
     title #{title}
     link(rel="stylesheet" href="/bulmaswatch.min.css")
     script(src="/fontawesome.min.js" async)
-    block xtraJS
+    script(src="/navbar-burger-handler.js" defer)
   body
     nav.navbar(role="navigation" aria-label="main navigation")
       .navbar-brand
@@ -24,10 +24,3 @@ html(lang="en")
       .container
         .content
           block content
-    script.
-      const navBurger = document.querySelector('.navbar-burger[data-target=nav]');
-      const navMenu = document.querySelector('#nav');
-      navBurger.addEventListener('click', () => {
-        navBurger.classList.toggle('is-active');
-        navMenu.classList.toggle('is-active');
-      });
