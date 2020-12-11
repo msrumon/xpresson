@@ -3,14 +3,13 @@ const { body } = require('express-validator');
 const User = require('../models/user');
 
 exports.register = [
-  body('name').notEmpty().withMessage('Name is required!').trim().escape(),
+  body('name').trim().escape().notEmpty().withMessage('Name is required!'),
   body('email')
+    .trim()
     .notEmpty()
     .withMessage('Email is required!')
     .isEmail()
-    .withMessage('Email is invalid!')
-    .trim()
-    .normalizeEmail(),
+    .withMessage('Email is invalid!'),
   body('password')
     .notEmpty()
     .withMessage('Password is required!')
@@ -24,18 +23,18 @@ exports.register = [
 
 exports.login = [
   body('email')
+    .trim()
     .notEmpty()
     .withMessage('Email is required!')
     .isEmail()
-    .withMessage('Email is invalid!')
-    .trim()
-    .normalizeEmail(),
+    .withMessage('Email is invalid!'),
   body('password').notEmpty().withMessage('Password is required!'),
 ];
 
 exports.update = [
   body('name').notEmpty().withMessage('Name is required!').trim().escape(),
   body('email')
+    .trim()
     .notEmpty()
     .withMessage('Email is required!')
     .isEmail()
@@ -48,9 +47,7 @@ exports.update = [
         }
       }
       return true;
-    })
-    .trim()
-    .normalizeEmail(),
+    }),
   body('oldPassword')
     .if(body('newPassword').exists({ checkFalsy: true }))
     .notEmpty()
@@ -72,9 +69,9 @@ exports.update = [
 
 exports.delete = [
   body('confirmation')
+    .trim()
     .notEmpty()
     .withMessage('Confirmation is missing!')
     .equals('CONFIRM')
-    .withMessage('Confirmation is required!')
-    .trim(),
+    .withMessage('Confirmation is required!'),
 ];
