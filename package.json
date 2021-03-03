@@ -31,7 +31,7 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.8.0",
     "helmet": "^4.2.0",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.0"
   },
