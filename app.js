@@ -45,14 +45,10 @@ app.use(errorController.eInternalServerError);
 
 async function start(port) {
   app.locals.title = 'xpresson';
-  try {
-    await db.sync();
-    await new Promise((resolve, reject) => {
-      app.listen(port, resolve);
-    });
-    console.log(`Server is up & running on port ${port}...`);
-  } catch (error) {
-    console.error(error);
-  }
+  await db.sync();
+  await new Promise((resolve, reject) => {
+    app.listen(port, resolve);
+  });
+  console.log(`Server is up & running on port ${port}...`);
 }
-start(process.env.PORT || 4444);
+start(process.env.PORT || 4444).then(console.log).catch(console.error);
