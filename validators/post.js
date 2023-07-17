@@ -1,6 +1,6 @@
-const { body, param, query } = require('express-validator');
+import { body, param, query } from 'express-validator';
 
-exports.post = [
+export const post = [
   body('title').notEmpty().withMessage('Title is required!').trim().escape(),
   body('content')
     .notEmpty()
@@ -9,15 +9,15 @@ exports.post = [
     .escape(),
 ];
 
-exports.id = [
+export const id = [
   param('id').isNumeric().withMessage('ID is invalid!').trim().toInt(),
 ];
 
-exports.comment = [
+export const comment = [
   body('comment').notEmpty().withMessage('Comment is missing!').trim().escape(),
 ];
 
-exports.page = [
+export const page = [
   query('page')
     .optional()
     .isNumeric()

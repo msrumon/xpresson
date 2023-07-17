@@ -1,10 +1,10 @@
-const { Router } = require('express');
+import { Router } from 'express';
+
+import * as postController from '../controllers/post.js';
+import authMiddleware from '../middlewares/auth.js';
+import * as postValidator from '../validators/post.js';
 
 const router = Router();
-
-const postController = require('../controllers/post');
-const authMiddleware = require('../middlewares/auth');
-const postValidator = require('../validators/post');
 
 router.get('/', postValidator.page, postController.index);
 router.get('/new', authMiddleware, postController.create);
@@ -33,7 +33,7 @@ router.post(
   '/:id/delete',
   authMiddleware,
   postValidator.id,
-  postController.delete
+  postController.remove
 );
 router.post(
   '/:id/likes',
@@ -49,4 +49,4 @@ router.post(
   postController.comments
 );
 
-module.exports = router;
+export default router;

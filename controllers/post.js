@@ -1,9 +1,9 @@
-const { validationResult, matchedData } = require('express-validator');
+import { validationResult, matchedData } from 'express-validator';
 
-const Post = require('../models/post');
-const User = require('../models/user');
+import Post from '../models/post.js';
+import User from '../models/user.js';
 
-exports.index = async (req, res, next) => {
+export async function index(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const [e] = errors.array();
@@ -37,16 +37,16 @@ exports.index = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.create = (req, res, next) => {
+export function create(req, res) {
   return res.render('post/save', {
     errors: req.flash('errors')[0] || {},
     inputs: req.flash('inputs')[0] || {},
   });
-};
+}
 
-exports.store = async (req, res, next) => {
+export async function store(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.flash('errors', errors.mapped());
@@ -61,9 +61,9 @@ exports.store = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.show = async (req, res, next) => {
+export async function show(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const [e] = errors.array();
@@ -115,9 +115,9 @@ exports.show = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.edit = async (req, res, next) => {
+export async function edit(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const [e] = errors.array();
@@ -144,9 +144,9 @@ exports.edit = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.update = async (req, res, next) => {
+export async function update(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const e = errors.mapped();
@@ -177,9 +177,9 @@ exports.update = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.erase = async (req, res, next) => {
+export async function erase(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const [e] = errors.array();
@@ -202,9 +202,9 @@ exports.erase = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.delete = async (req, res, next) => {
+export async function remove(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const [e] = errors.array();
@@ -229,9 +229,9 @@ exports.delete = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.likes = async (req, res, next) => {
+export async function likes(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const [e] = errors.array();
@@ -256,9 +256,9 @@ exports.likes = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.comments = async (req, res, next) => {
+export async function comments(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.flash('errors', errors.mapped());
@@ -278,4 +278,4 @@ exports.comments = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}

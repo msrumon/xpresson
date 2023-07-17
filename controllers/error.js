@@ -1,14 +1,14 @@
-exports.eNotFound = (req, res, next) => {
+export function eNotFound(_req, res) {
   return res.status(404).render('error', {
     headline: 'Not Found',
-    description: 'The page you&apos;re looking for is not available.',
+    description: 'The page you are looking for is not available.',
   });
-};
+}
 
-exports.eInternalServerError = (err, req, res, next) => {
+export function eInternalServerError(err, _req, res) {
   console.error(err);
   return res.status(500).render('error', {
     headline: 'Server Problem',
     description: 'The server has encountered an unexpected problem.',
   });
-};
+}

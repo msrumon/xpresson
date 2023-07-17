@@ -1,8 +1,8 @@
-const { validationResult, matchedData } = require('express-validator');
+import { validationResult, matchedData } from 'express-validator';
 
-const User = require('../models/user');
+import User from '../models/user.js';
 
-exports.register = async (req, res, next) => {
+export async function register(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.flash('errors', errors.mapped());
@@ -11,21 +11,15 @@ exports.register = async (req, res, next) => {
   }
   const { name, email, password } = matchedData(req);
   try {
-    const user = await User.findOne({ where: { email } });
-    if (user) {
-      req.flash('notification', { danger: 'Email is already registered!' });
-      req.flash('inputs', req.body);
-      return res.redirect('/register');
-    }
     await User.create({ name, email, password });
     req.flash('notification', { success: 'Registered successfully!' });
     return res.redirect('/login');
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.login = async (req, res, next) => {
+export async function login(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.flash('errors', errors.mapped());
@@ -51,10 +45,10 @@ exports.login = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.logout = async (req, res, next) => {
+export async function logout(req, res) {
   req.session.user = null;
   req.flash('notification', { success: 'Logged out successfully!' });
   return res.redirect('/login');
-};
+}

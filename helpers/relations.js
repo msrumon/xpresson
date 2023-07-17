@@ -1,7 +1,7 @@
-const Comment = require('../models/comment');
-const Like = require('../models/like');
-const Post = require('../models/post');
-const User = require('../models/user');
+import Comment from '../models/comment.js';
+import Like from '../models/like.js';
+import Post from '../models/post.js';
+import User from '../models/user.js';
 
 Post.belongsTo(User);
 User.hasMany(Post);

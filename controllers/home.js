@@ -1,8 +1,8 @@
-exports.index = (req, res, next) => {
+export function index(_req, res) {
   return res.render('index', { isThisHome: true });
-};
+}
 
-exports.register = (req, res, next) => {
+export function register(req, res) {
   if (req.session.user) {
     return res.redirect('/profile');
   }
@@ -11,9 +11,9 @@ exports.register = (req, res, next) => {
     inputs: req.flash('inputs')[0] || {},
     notification: req.flash('notification')[0] || {},
   });
-};
+}
 
-exports.login = (req, res, next) => {
+export function login(req, res) {
   if (req.session.user) {
     return res.redirect('/profile');
   }
@@ -22,4 +22,4 @@ exports.login = (req, res, next) => {
     inputs: req.flash('inputs')[0] || {},
     notification: req.flash('notification')[0] || {},
   });
-};
+}

@@ -1,6 +1,6 @@
-const { validationResult, matchedData } = require('express-validator');
+import { validationResult, matchedData } from 'express-validator';
 
-exports.index = async (req, res, next) => {
+export async function index(req, res, next) {
   try {
     const posts = await req.auth.getPosts({ order: [['createdAt', 'DESC']] });
     return res.render('user/dashboard', {
@@ -11,17 +11,17 @@ exports.index = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.edit = (req, res, next) => {
+export function edit(req, res) {
   return res.render('user/update', {
     user: req.auth,
     errors: req.flash('errors')[0] || {},
     inputs: req.flash('inputs')[0] || {},
   });
-};
+}
 
-exports.update = async (req, res, next) => {
+export async function update(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.flash('errors', errors.mapped());
@@ -45,16 +45,16 @@ exports.update = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-exports.erase = (req, res, next) => {
+export function erase(req, res) {
   return res.render('user/delete', {
     user: req.auth,
     errors: req.flash('errors')[0] || {},
   });
-};
+}
 
-exports.delete = async (req, res, next) => {
+export async function remove(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.flash('errors', errors.mapped());
@@ -68,4 +68,4 @@ exports.delete = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}

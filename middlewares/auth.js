@@ -1,6 +1,6 @@
-const User = require('../models/user');
+import User from '../models/user.js';
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/login');
   }

@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-const sequelize = require('../utils/database');
+import sequelize from '../utils/database.js';
 
 const Comment = sequelize.define('Comment', {
   text: { type: DataTypes.STRING, allowNull: false },
 });
 
-module.exports = Comment;
+export default Comment;

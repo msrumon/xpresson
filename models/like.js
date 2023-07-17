@@ -1,5 +1,5 @@
-const sequelize = require('../utils/database');
+import sequelize from '../utils/database.js';
 
 const Like = sequelize.define('Like', {}, { updatedAt: false });
 
-module.exports = Like;
+export default Like;

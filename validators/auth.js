@@ -1,15 +1,22 @@
-const { body } = require('express-validator');
+import { body } from 'express-validator';
 
-const User = require('../models/user');
+import User from '../models/user.js';
 
-exports.register = [
+export const register = [
   body('name').trim().escape().notEmpty().withMessage('Name is required!'),
   body('email')
     .trim()
     .notEmpty()
     .withMessage('Email is required!')
     .isEmail()
-    .withMessage('Email is invalid!'),
+    .withMessage('Email is invalid!')
+    .custom(async (input) => {
+      const user = await User.findOne({ where: { email: input } });
+      if (user) {
+        throw new Error('Email is already registered!');
+      }
+      return true;
+    }),
   body('password')
     .notEmpty()
     .withMessage('Password is required!')
@@ -21,7 +28,7 @@ exports.register = [
     }),
 ];
 
-exports.login = [
+export const login = [
   body('email')
     .trim()
     .notEmpty()
@@ -31,7 +38,7 @@ exports.login = [
   body('password').notEmpty().withMessage('Password is required!'),
 ];
 
-exports.update = [
+export const update = [
   body('name').notEmpty().withMessage('Name is required!').trim().escape(),
   body('email')
     .trim()
@@ -67,7 +74,7 @@ exports.update = [
   }),
 ];
 
-exports.delete = [
+export const remove = [
   body('confirmation')
     .trim()
     .notEmpty()

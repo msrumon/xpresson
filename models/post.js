@@ -1,10 +1,10 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-const sequelize = require('../utils/database');
+import sequelize from '../utils/database.js';
 
 const Post = sequelize.define('Post', {
   title: { type: DataTypes.STRING, allowNull: false },
   content: { type: DataTypes.TEXT, allowNull: false },
 });
 
-module.exports = Post;
+export default Post;
